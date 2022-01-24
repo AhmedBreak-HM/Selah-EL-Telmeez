@@ -1,8 +1,25 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-    <RootNamespace>_0.LMS.Domain</RootNamespace>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+		<RootNamespace>_0.LMS.Domain</RootNamespace>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Remove="SeedWork\Enums\Term.Enum.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="SeedWork\Enums\Term.Enum.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="5.0.13" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="AggregateModels\SubscriptionModels\" />
+	</ItemGroup>
 
 </Project>
