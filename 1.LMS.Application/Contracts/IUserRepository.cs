@@ -1,6 +1,5 @@
 ﻿using _0.LMS.Domain.AggregateModels.SubscriptionModels;
 using _1.LMS.Application.Commands.User.LogInUser;
-using _1.LMS.Application.Commands.User.SignUpUser;
 using _1.LMS.Application.Queries.User.GetUserByName;
 using Microsoft.AspNetCore.Identity;
 using System.Threading;
@@ -13,7 +12,9 @@ namespace _1.LMS.Application.Contracts
         // In DDD  When You Post Shoud Interact With DomainModel Not Dto
         // UserApplication userApplication
         Task<IdentityResult> SignUp(UserApplication userApplication, string password);
+
         Task<LogInUserForReturnDto> LogIn(LogInUserCommand logInUserCommand, CancellationToken cancellationToken);
+
         Task<UserForReturnDto> GetUserByName(string name);
     }
 }

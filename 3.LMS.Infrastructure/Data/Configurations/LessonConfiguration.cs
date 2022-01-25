@@ -1,12 +1,6 @@
 ﻿using _0.LMS.Domain.AggregateModels.SubjectModels;
-using _0.LMS.Domain.AggregateModels.UserModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace _3.LMS.Infrastructure.Data.Configurations
 {
@@ -26,6 +20,9 @@ namespace _3.LMS.Infrastructure.Data.Configurations
                 nameBuilder.Property(p => p.LessonPoints).HasColumnName("LessonPoints");
                 nameBuilder.Property(p => p.Progress).HasColumnName("Progress");
             });
+            builder.HasOne(x => x.Subject).WithMany(x => x.Lessons)
+                   .HasForeignKey(x => x.SubjectId)
+                   .OnDelete(DeleteBehavior.Cascade).IsRequired();
         }
     }
 }

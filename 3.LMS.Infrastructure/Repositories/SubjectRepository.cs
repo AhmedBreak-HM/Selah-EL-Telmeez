@@ -2,11 +2,8 @@
 using _1.LMS.Application.Contracts;
 using _3.LMS.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace _3.LMS.Infrastructure.Repositories
@@ -19,6 +16,7 @@ namespace _3.LMS.Infrastructure.Repositories
         {
             _context = context;
         }
+
         public async Task<IReadOnlyList<Subject>> GetSubjectByUser(int gradeId, int termId)
         {
             return await _context.Subjects.Where(s => s.Grade.GradeId == gradeId && s.Term.TermId == termId).ToListAsync();

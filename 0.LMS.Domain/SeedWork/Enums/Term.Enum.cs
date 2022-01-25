@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace _0.LMS.Domain.SeedWork.Enums
 {
-	public enum Term
-	{
-		FristTerm = 1,
-		SecondTerm,
-	}
+    public enum Term
+    {
+        FristTerm = 1,
+        SecondTerm,
+    }
 }

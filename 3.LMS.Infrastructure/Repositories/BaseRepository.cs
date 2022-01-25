@@ -3,8 +3,6 @@ using _3.LMS.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace _3.LMS.Infrastructure.Repositories
@@ -17,6 +15,7 @@ namespace _3.LMS.Infrastructure.Repositories
         {
             _context = context;
         }
+
         public async Task<T> AddAsync(T entity)
         {
             await _context.Set<T>().AddAsync(entity);

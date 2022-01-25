@@ -3,9 +3,7 @@ using _0.LMS.Domain.Events;
 using _1.LMS.Application.Contracts;
 using MediatR;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -21,6 +19,7 @@ namespace _1.LMS.Application.Commands.User.LogInUser
             _userRepository = userRepository;
             _mediator = mediator;
         }
+
         public async Task<LogInUserForReturnDto> Handle(LogInUserCommand request, CancellationToken cancellationToken)
         {
             LogInUserCommandValidator validations = new LogInUserCommandValidator();

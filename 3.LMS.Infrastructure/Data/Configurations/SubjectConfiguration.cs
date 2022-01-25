@@ -1,11 +1,6 @@
 ﻿using _0.LMS.Domain.AggregateModels.SubjectModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace _3.LMS.Infrastructure.Data.Configurations
 {
@@ -46,7 +41,6 @@ namespace _3.LMS.Infrastructure.Data.Configurations
                 nameBuilder.Property(p => p.StudentPoints).HasColumnName("StudentPoints");
                 nameBuilder.Property(p => p.SubjectPoints).HasColumnName("SubjectPoints");
             });
-
         }
     }
 }

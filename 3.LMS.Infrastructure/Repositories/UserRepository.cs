@@ -10,7 +10,6 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading;
@@ -36,6 +35,7 @@ namespace _3.LMS.Infrastructure.Repositories
             _signInManager = signInManager;
             _roleManager = roleManager;
         }
+
         public async Task<UserForReturnDto> GetUserByName(string name)
         {
             var user = await _userManager.FindByNameAsync(name);
@@ -67,7 +67,6 @@ namespace _3.LMS.Infrastructure.Repositories
             // UserApplication userApplication
 
             var result = await _userManager.CreateAsync(userApplication, password);
-
 
             if (!result.Succeeded) return null;
 
