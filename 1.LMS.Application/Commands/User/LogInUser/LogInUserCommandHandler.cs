@@ -28,7 +28,7 @@ namespace _1.LMS.Application.Commands.User.LogInUser
             if (result.Errors.Any())
                 throw new Exception("LogIn is not Valid");
             var userFromAggregate = new UserApplication();
-            userFromAggregate.Login(request.Email, request.Password);
+            userFromAggregate.Login(request.UserName, request.Email, request.Password);
             var warningEndDateEvent = new UserLoginToSubscriptionWarningEndDate();
             warningEndDateEvent.TodayDate = DateTime.Now;
             await _mediator.Publish(warningEndDateEvent, cancellationToken);

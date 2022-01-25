@@ -15,7 +15,10 @@ namespace _0.LMS.Domain.AggregateModels.UserModels
         public LessonStudy LessonStudy { get; private set; }
         public int SubjectId { get; private set; }
         public int UserId { get; private set; }
+        public RecentLesson()
+        {
 
+        }
         public RecentLesson(string lessonName, string iconOfList, LessonStudy lessonStudy, int subjectId, int userId)
         {
             LessonName = lessonName;

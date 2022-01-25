@@ -10,6 +10,6 @@ namespace _1.LMS.Application.Contracts
 {
     public interface ISubjectRepository : IAsyncRepository<Subject>
     {
-        Task<IReadOnlyList<Subject>> GetSubjectByUser(int gradeId, int termId, CancellationToken cancellationToken);
+        Task<IReadOnlyList<Subject>> GetSubjectByUser(int gradeId, int termId);
     }
 }
