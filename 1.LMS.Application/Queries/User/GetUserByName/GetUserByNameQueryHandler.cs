@@ -22,7 +22,7 @@ namespace _1.LMS.Application.Queries.User.GetUserByName
         }
         public async Task<UserForReturnDto> Handle(GetUserByNameQuery request, CancellationToken cancellationToken)
         {
-            var userFromRepo = await _userRepository.GetUserByName(request.UserName, cancellationToken);
+            var userFromRepo = await _userRepository.GetUserByName(request.UserName);
             return _mapper.Map<UserForReturnDto>(userFromRepo);
         }
     }

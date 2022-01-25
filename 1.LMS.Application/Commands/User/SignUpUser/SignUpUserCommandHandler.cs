@@ -27,7 +27,11 @@ namespace _1.LMS.Application.Commands.User.SignUpUser
             var userFromAggregate = new UserApplication();
             userFromAggregate.SignUp(request.Email, request.UserName, request.StudingYear, request.Password,
                                      request.MobileNumber, request.YearOfBirth, request.City, request.SubscirbedEndDate);
-            return await _userRepository.SignUp(request, cancellationToken);
+
+            // In DDD  When You Post Shoud Interact With DomainModel Not Dto
+            // UserApplication userApplication
+
+            return await _userRepository.SignUp(userFromAggregate, request.Password);
         }
     }
 }

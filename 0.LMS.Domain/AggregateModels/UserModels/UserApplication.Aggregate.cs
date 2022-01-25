@@ -1,10 +1,7 @@
 ﻿using _0.LMS.Domain.AggregateModels.UserModels;
-using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace _0.LMS.Domain.AggregateModels.SubscriptionModels
 {
@@ -29,7 +26,7 @@ namespace _0.LMS.Domain.AggregateModels.SubscriptionModels
             _recentLesson = new List<RecentLesson>();
         }
 
-        public bool Login(string email, string password)
+        public bool Login(string userName, string email, string password)
         {
             Email = email ?? throw new ArgumentException("Must have a value", nameof(email));
             if (password == null) throw new ArgumentException("Must have a value", nameof(password));

@@ -22,7 +22,7 @@ namespace _1.LMS.Application.Queries.Subject.GetSubjectByUser
         }
         public async Task<GetSubjectByUserDto> Handle(GetSubjectByUserQuery request, CancellationToken cancellationToken)
         {
-            var subjectFromRepo = await _subjectRepository.GetSubjectByUser(request.GradeId, request.TermId, cancellationToken);
+            var subjectFromRepo = await _subjectRepository.GetSubjectByUser(request.GradeId, request.TermId);
             return _mapper.Map<GetSubjectByUserDto>(subjectFromRepo);
         }
     }
