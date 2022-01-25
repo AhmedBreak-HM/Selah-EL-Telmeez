@@ -10,7 +10,7 @@ namespace _0.LMS.Domain.AggregateModels.SubjectModels
         public Subject Subject { get; set; }
         public int SubjectId { get; private set; }
 
-        public Lesson()
+        private Lesson()
         { }
 
         public Lesson(string lessonName, string iconOfList, int subjectId)

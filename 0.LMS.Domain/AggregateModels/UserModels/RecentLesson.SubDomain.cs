@@ -14,7 +14,7 @@ namespace _0.LMS.Domain.AggregateModels.UserModels
         public UserApplication User { get; private set; }
         public int UserId { get; private set; }
 
-        public RecentLesson()
+        private RecentLesson()
         {
         }
 

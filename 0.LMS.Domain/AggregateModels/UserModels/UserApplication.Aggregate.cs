@@ -15,8 +15,7 @@ namespace _0.LMS.Domain.AggregateModels.SubscriptionModels
         private readonly List<RecentLesson> _recentLesson;
         public IReadOnlyCollection<RecentLesson> RecentLessons => _recentLesson.AsReadOnly();
 
-        public UserApplication()
-        { }
+        public UserApplication() { }
 
         public UserApplication(int studingYear, int city, DateTime yearOfBirth, bool acceptTerms, DateTime subscirbedEndDate)
         {

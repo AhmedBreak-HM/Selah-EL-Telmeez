@@ -17,7 +17,7 @@ namespace _0.LMS.Domain.AggregateModels.SubjectModels
         private readonly List<Lesson> _lessons;
         public IReadOnlyCollection<Lesson> Lessons => _lessons.AsReadOnly();
 
-        public Subject()
+        private Subject()
         { }
 
         public Subject(string subjectName, string numeral, bool subscribed)
