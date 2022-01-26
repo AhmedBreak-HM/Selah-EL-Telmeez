@@ -63,6 +63,7 @@ namespace _3.LMS.Infrastructure.Repositories
 
         public async Task<IdentityResult> SignUp(UserApplication userApplication, string password)
         {
+            // ToRemember ^0-0^ :
             // In DDD  When You Post Shoud Interact With DomainModel Not Dto
             // UserApplication userApplication
 
@@ -72,7 +73,7 @@ namespace _3.LMS.Infrastructure.Repositories
 
             // Create Role Member For User
             var user = await _userManager.FindByNameAsync(userApplication.UserName);
-            var resultRoleCreate = await _userManager.AddToRolesAsync(user, new[] { "Member" });
+            var resultRoleCreate = await _userManager.AddToRolesAsync(user, new[] { "Student" });
             if (!resultRoleCreate.Succeeded) return null;
             return result;
         }

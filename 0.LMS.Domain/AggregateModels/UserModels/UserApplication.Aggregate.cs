@@ -13,7 +13,7 @@ namespace _0.LMS.Domain.AggregateModels.SubscriptionModels
         public bool AcceptTerms { get; private set; }
         public DateTime SubscirbedEndDate { get; private set; }
         private readonly List<RecentLesson> _recentLesson;
-        public IReadOnlyCollection<RecentLesson> RecentLessons => _recentLesson.AsReadOnly();
+        public IReadOnlyCollection<RecentLesson> RecentLessons => _recentLesson;
 
         public UserApplication() { }
 

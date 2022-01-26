@@ -21,7 +21,6 @@ namespace _3.LMS.Infrastructure.Data.Configurations
                 nameBuilder.Property(p => p.Progress).HasColumnName("Progress");
             });
             builder.HasOne(x => x.User).WithMany(x => x.RecentLessons)
-                   .HasForeignKey(x => x.UserId)
                    .OnDelete(DeleteBehavior.Cascade).IsRequired();
             builder.HasOne(x => x.Subject).WithMany().HasForeignKey(x => x.SubjectId)
                    .OnDelete(DeleteBehavior.Cascade).IsRequired();

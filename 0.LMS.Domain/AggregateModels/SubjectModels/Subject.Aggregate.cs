@@ -15,17 +15,20 @@ namespace _0.LMS.Domain.AggregateModels.SubjectModels
         public bool Subscribed { get; private set; } = false;
 
         private readonly List<Lesson> _lessons;
-        public IReadOnlyCollection<Lesson> Lessons => _lessons.AsReadOnly();
+        public IReadOnlyCollection<Lesson> Lessons => _lessons;
 
         private Subject()
         { }
 
-        public Subject(string subjectName, string numeral, bool subscribed)
+        public Subject(int id, string subjectName, string iconOfList, int gradeId, int termId)
         {
+            Id = id;
             SubjectName = subjectName;
-            Numeral = numeral ?? "Hindi";
-            Subscribed = subscribed;
-            _lessons = new List<Lesson>();
+            Icon = new Icon() { IconOfList = iconOfList };
+            Grade = new Grade() { GradeId = gradeId };
+            Term = new Term() { TermId = termId };
         }
+
+
     }
 }

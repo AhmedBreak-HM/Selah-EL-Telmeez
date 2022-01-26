@@ -11,14 +11,14 @@ namespace _3.LMS.Infrastructure.Data.Configurations
             builder.ToTable("Subjects");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).HasColumnName("Id");
-            builder.Property(s => s.SubjectName).HasColumnName("SubjectName").HasMaxLength(50).IsRequired();
+            builder.Property(s => s.SubjectName).HasColumnName("SubjectName").HasMaxLength(100).IsRequired();
             builder.Property(s => s.Numeral).HasColumnName("Numeral");
             builder.Property(s => s.Subscribed).HasColumnName("Subscribed");
             builder.OwnsOne(x => x.Icon, nameBuilder =>
             {
-                nameBuilder.Property(p => p.IconOfList).HasColumnName("IconOfList").HasMaxLength(50);
-                nameBuilder.Property(p => p.IconOfSlider).HasColumnName("IconOfSlider").HasMaxLength(50);
-                nameBuilder.Property(p => p.ColoredIcon).HasColumnName("ColoredIcon").HasMaxLength(50);
+                nameBuilder.Property(p => p.IconOfList).HasColumnName("IconOfList").HasMaxLength(100);
+                nameBuilder.Property(p => p.IconOfSlider).HasColumnName("IconOfSlider").HasMaxLength(100);
+                nameBuilder.Property(p => p.ColoredIcon).HasColumnName("ColoredIcon").HasMaxLength(100);
                 nameBuilder.Property(p => p.IconBackground).HasColumnName("IconBackground").HasMaxLength(50);
             });
             builder.OwnsOne(x => x.Grade, nameBuilder =>
