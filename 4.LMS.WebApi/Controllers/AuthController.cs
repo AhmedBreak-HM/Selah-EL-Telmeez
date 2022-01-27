@@ -22,7 +22,7 @@ namespace _4.LMS.WebApi.Controllers
         }
 
         // ToRemember ^0-0^ :
-        // IActionResult Not Generic Retrun OK(obj) so It's Not documented
+        // IActionResult Not Generic Retrun OK(obj) so It's Not Recommended
         [HttpPost("signUp")]
         public async Task<ActionResult<UserForReturnDto>> SignUp(SignUpUserCommand signUpUserCommand)
         {
