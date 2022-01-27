@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
 namespace _4.LMS.WebApi
 {
     public class Startup
@@ -47,7 +46,7 @@ namespace _4.LMS.WebApi
             var origin = Configuration.GetSection("Cors-Origin:SPA-App").Value;
             services.AddCors(o => o.AddPolicy(policy, builder =>
             {
-                builder.WithOrigins(origin).AllowAnyMethod().AllowAnyHeader();
+                builder.WithOrigins(origin).AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
             }));
             //-----------------------------------
 
@@ -71,12 +70,13 @@ namespace _4.LMS.WebApi
             // Add Golable ExceptionHandler in Prodaction mode
             app.UseGolableExceptionMiddleware();
 
+            // add Cors
+            app.UseCors(policy);
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
-            // add Cors
-            app.UseCors(policy);
 
             // add authentication Midllware
             app.UseAuthentication();

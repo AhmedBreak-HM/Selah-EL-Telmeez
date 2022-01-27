@@ -6,6 +6,7 @@ namespace _1.LMS.Application.Commands.User.LogInUser
     {
         public LogInUserCommandValidator()
         {
+            RuleFor(p => p.UserName).NotEmpty().NotNull();
             RuleFor(p => p.Email).NotEmpty().NotNull().EmailAddress();
             RuleFor(p => p.Password).NotEmpty().NotNull().MinimumLength(7);
         }

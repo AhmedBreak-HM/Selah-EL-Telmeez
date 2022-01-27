@@ -8,6 +8,7 @@ import { AuthMainComponent } from 'src/app/components/authMain/authMain.componen
 import { LandingComponent } from '../../components/landing/landing.component';
 import { SignupComponent } from '../../components/signup/signup.component';
 import { LoginComponent } from '../../components/login/login.component';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { LoginComponent } from '../../components/login/login.component';
     CommonModule,
     AuthRoutingModule,
     SharedModule,
-  ]
+  ],
+  providers: [AuthService]
 })
 export class AuthModule { }
