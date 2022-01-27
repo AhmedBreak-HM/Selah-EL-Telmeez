@@ -8,6 +8,7 @@ import { MaterialsModule } from './materials.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
+import { AuthGuard } from './services/guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -25,8 +26,8 @@ import { JwtModule } from '@auth0/angular-jwt';
         tokenGetter: () => {
           return localStorage.getItem('token');
         },
-        allowedDomains:['localhost:5000'],
-        disallowedRoutes:['localhost:5000/api/auth']
+        allowedDomains: ['localhost:5000'],
+        disallowedRoutes: ['localhost:5000/api/auth']
 
       },
     }),
@@ -36,7 +37,10 @@ import { JwtModule } from '@auth0/angular-jwt';
     NgbModule
 
   ],
-  providers: [],
+  providers: [
+    // Guards
+    AuthGuard,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

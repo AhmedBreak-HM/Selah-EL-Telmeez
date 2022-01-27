@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
-import { AlertifyService } from '../alertify.service';
 import { AuthService } from '../auth.service';
 
 @Injectable({
@@ -8,13 +7,14 @@ import { AuthService } from '../auth.service';
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(private authService: AuthService, private alert: AlertifyService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   canActivate(): boolean {
     if (this.authService.isUser()) {
+      this.router.navigate(['student']);
       return true;
     } else {
-      this.alert.error('يجب عليك تسجيل الدخول اولا');
+      console.log('يجب عليك تسجيل الدخول اولا');
       this.router.navigate(['']);
       return false;
     }
