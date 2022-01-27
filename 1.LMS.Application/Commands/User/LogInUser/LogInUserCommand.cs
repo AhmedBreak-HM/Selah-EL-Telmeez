@@ -1,8 +1,4 @@
 ﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace _1.LMS.Application.Commands.User.LogInUser
 {
@@ -13,7 +9,5 @@ namespace _1.LMS.Application.Commands.User.LogInUser
         public string Email { get; set; }
 
         public string Password { get; set; }
-
-
     }
 }

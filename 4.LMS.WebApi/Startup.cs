@@ -1,27 +1,12 @@
-using _0.LMS.Domain.AggregateModels.SubscriptionModels;
-using _1.LMS.Application.Contracts;
+using _1.LMS.Application;
 using _3.LMS.Infrastructure;
-using _3.LMS.Infrastructure.Data;
-using _3.LMS.Infrastructure.Repositories;
-using MediatR;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using _4.LMS.WebApi.ConfigureServices;
+using _4.LMS.WebApi.Middlewares;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace _4.LMS.WebApi
 {
@@ -37,92 +22,45 @@ namespace _4.LMS.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAutoMapper(typeof(Startup));
-            services.AddMediatR(typeof(Startup));
-            services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<ISubjectRepository, SubjectRepository>();
+            // add Core Application Layer Container
+            services.AddApplicationLayerServices();
+            // add Core Persistence Layer Container
+            services.AddPersistenceLayerServices(Configuration);
 
-            services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            // Add Identity ConfigureServices ------------------------------
+            // Add Identity ConfigureServices
+            services.AddIdentityService();
 
-            services.AddIdentity<UserApplication, IdentityRole>(option =>
-            {
-                option.Password.RequireDigit = false;
-                option.Password.RequiredLength = 6;
-                option.Password.RequireNonAlphanumeric = false;
-                option.Password.RequireUppercase = false;
-                option.Password.RequireLowercase = false;
-            }).AddEntityFrameworkStores<ApplicationDbContext>()
-              .AddDefaultTokenProviders();
+            // Add Authentication
+            services.AddAuthenticationService(Configuration);
 
-            // ------------------------------------------------------------------------------
-            //       Add Authentication 
-            services.AddAuthentication(opt =>
-            {
-                opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                opt.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(x =>
-            {
-                x.RequireHttpsMetadata = false;
-                x.SaveToken = true;
-                x.TokenValidationParameters = new TokenValidationParameters()
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration.GetSection("JWT:TokenKey").Value)),
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    ClockSkew = TimeSpan.Zero
-                };
-            });
-            //-----------------------------------------------------------
+            // Add Authorization
+            services.AddAuthorizationService();
 
+            // Add Swagger
 
-            //       Add Authorization
-            services.AddAuthorization(
-                options =>
-                {
-                    options.AddPolicy("RequireMemberRole", policy => policy.RequireRole("Member"));
-                    options.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
-                    options.AddPolicy("ModeratePhotoRole", policy => policy.RequireRole("Admin", "Moderator"));
-                    options.AddPolicy("VipOnly", policy => policy.RequireRole("VIP"));
-                }
-            );
-            //-----------------------------------
+            services.AddSwaggerGenService();
+
             services.AddControllers();
-            // Swagger --------------------------
 
-            services.AddSwaggerGen(c =>
+            // Add Cors-Origin
+            var policy = Configuration.GetSection("Cors-Origin:Policy").Value;
+            var origin = Configuration.GetSection("Cors-Origin:SPA-App").Value;
+            services.AddCors(o => o.AddPolicy(policy, builder =>
             {
-                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-                {
-                    In = ParameterLocation.Header,
-                    Description = "Please Bearer and then token in the field",
-                    Name = "Authorization",
-                    Type = SecuritySchemeType.ApiKey
-                });
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement {
-                   {
-                     new OpenApiSecurityScheme
-                     {
-                       Reference = new OpenApiReference
-                       {
-                         Type = ReferenceType.SecurityScheme,
-                         Id = "Bearer"
-                       }
-                      },
-                      new string[] { }
-                    }
-                });
-            });
-
+                builder.WithOrigins(origin).AllowAnyMethod().AllowAnyHeader();
+            }));
             //-----------------------------------
+
+            // services.AddAutoMapper(typeof(Startup));
+            // services.AddMediatR(typeof(Startup));
+            // -------------------------------
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            var policy = Configuration.GetSection("Cors-Origin:Policy").Value;
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -130,15 +68,20 @@ namespace _4.LMS.WebApi
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "_4.LMS.WebApi v1"));
             }
 
+            // Add Golable ExceptionHandler in Prodaction mode
+            app.UseGolableExceptionMiddleware();
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            // add Cors
+            app.UseCors(policy);
 
             // add authentication Midllware
             app.UseAuthentication();
 
             app.UseAuthorization();
-
 
             app.UseEndpoints(endpoints =>
             {

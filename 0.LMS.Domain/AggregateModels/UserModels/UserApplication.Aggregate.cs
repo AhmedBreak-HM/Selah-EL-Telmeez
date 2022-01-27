@@ -1,7 +1,7 @@
 ﻿using _0.LMS.Domain.AggregateModels.UserModels;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Identity;
 
 namespace _0.LMS.Domain.AggregateModels.SubscriptionModels
 {
@@ -13,9 +13,10 @@ namespace _0.LMS.Domain.AggregateModels.SubscriptionModels
         public bool AcceptTerms { get; private set; }
         public DateTime SubscirbedEndDate { get; private set; }
         private readonly List<RecentLesson> _recentLesson;
-        public IReadOnlyCollection<RecentLesson> RecentLessons => _recentLesson.AsReadOnly();
+        public IReadOnlyCollection<RecentLesson> RecentLessons => _recentLesson;
 
         public UserApplication() { }
+
         public UserApplication(int studingYear, int city, DateTime yearOfBirth, bool acceptTerms, DateTime subscirbedEndDate)
         {
             StudingYear = studingYear;
@@ -32,6 +33,7 @@ namespace _0.LMS.Domain.AggregateModels.SubscriptionModels
             if (password == null) throw new ArgumentException("Must have a value", nameof(password));
             return true;
         }
+
         public void SignUp(string email, string userName, int studingYear, string password, string mobileNumber, DateTime yearOfBirth, int city, DateTime subscirbedEndDate)
         {
             Email = email ?? throw new ArgumentException("Must have a value", nameof(email));
@@ -42,8 +44,6 @@ namespace _0.LMS.Domain.AggregateModels.SubscriptionModels
             City = city;
             YearOfBirth = yearOfBirth;
             SubscirbedEndDate = subscirbedEndDate;
-
         }
-
     }
 }

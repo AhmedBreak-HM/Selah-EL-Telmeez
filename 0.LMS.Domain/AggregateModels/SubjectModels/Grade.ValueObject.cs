@@ -12,9 +12,6 @@ namespace _0.LMS.Domain.AggregateModels.SubjectModels
         {
             yield return GradeId;
             yield return GradeName;
-
         }
     }
-
-
 }

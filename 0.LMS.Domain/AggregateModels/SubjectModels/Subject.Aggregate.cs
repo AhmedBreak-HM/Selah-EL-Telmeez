@@ -1,9 +1,5 @@
 ﻿using _0.LMS.Domain.SeedWork;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace _0.LMS.Domain.AggregateModels.SubjectModels
 {
@@ -19,21 +15,20 @@ namespace _0.LMS.Domain.AggregateModels.SubjectModels
         public bool Subscribed { get; private set; } = false;
 
         private readonly List<Lesson> _lessons;
-        public IReadOnlyCollection<Lesson> Lessons => _lessons.AsReadOnly();
-        public Subject() { }
-        public Subject(string subjectName, Icon icon, Grade grade, Term term, Guide guide, Point point, string numeral, bool subscribed)
+        public IReadOnlyCollection<Lesson> Lessons => _lessons;
+
+        private Subject()
+        { }
+
+        public Subject(int id, string subjectName, string iconOfList, int gradeId, int termId)
         {
+            Id = id;
             SubjectName = subjectName;
-            Icon = icon;
-            Grade = grade;
-            Term = term;
-            Guide = guide;
-            Point = point;
-            Numeral = numeral ?? "Hindi";
-            Subscribed = subscribed;
-            _lessons = new List<Lesson>();
+            Icon = new Icon() { IconOfList = iconOfList };
+            Grade = new Grade() { GradeId = gradeId };
+            Term = new Term() { TermId = termId };
         }
+
+
     }
-
-
 }

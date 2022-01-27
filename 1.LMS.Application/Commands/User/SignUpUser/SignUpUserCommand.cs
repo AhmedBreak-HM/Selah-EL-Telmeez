@@ -1,10 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Identity;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace _1.LMS.Application.Commands.User.SignUpUser
 {
@@ -18,6 +14,7 @@ namespace _1.LMS.Application.Commands.User.SignUpUser
         public DateTime YearOfBirth { get; set; }
         public int City { get; set; }
         private DateTime subscirbedEndDate;
+
         public DateTime SubscirbedEndDate
         {
             get { return subscirbedEndDate; }

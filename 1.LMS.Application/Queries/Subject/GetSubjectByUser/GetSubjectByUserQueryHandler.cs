@@ -1,16 +1,13 @@
 ﻿using _1.LMS.Application.Contracts;
 using AutoMapper;
 using MediatR;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace _1.LMS.Application.Queries.Subject.GetSubjectByUser
 {
-    public class GetSubjectByUserQueryHandler : IRequestHandler<GetSubjectByUserQuery, GetSubjectByUserDto>
+    public class GetSubjectByUserQueryHandler : IRequestHandler<GetSubjectByUserQuery, IReadOnlyList<GetSubjectByUserDto>>
     {
         private readonly ISubjectRepository _subjectRepository;
         private readonly IMapper _mapper;
@@ -20,10 +17,11 @@ namespace _1.LMS.Application.Queries.Subject.GetSubjectByUser
             _subjectRepository = subjectRepository;
             _mapper = mapper;
         }
-        public async Task<GetSubjectByUserDto> Handle(GetSubjectByUserQuery request, CancellationToken cancellationToken)
+
+        public async Task<IReadOnlyList<GetSubjectByUserDto>> Handle(GetSubjectByUserQuery request, CancellationToken cancellationToken)
         {
             var subjectFromRepo = await _subjectRepository.GetSubjectByUser(request.GradeId, request.TermId);
-            return _mapper.Map<GetSubjectByUserDto>(subjectFromRepo);
+            return _mapper.Map<IReadOnlyList<GetSubjectByUserDto>>(subjectFromRepo);
         }
     }
 }
