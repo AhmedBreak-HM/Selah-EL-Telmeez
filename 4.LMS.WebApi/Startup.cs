@@ -42,7 +42,15 @@ namespace _4.LMS.WebApi
 
             services.AddControllers();
 
+            // Add Cors-Origin
+            var policy = Configuration.GetSection("Cors-Origin:Policy").Value;
+            var origin = Configuration.GetSection("Cors-Origin:SPA-App").Value;
+            services.AddCors(o => o.AddPolicy(policy, builder =>
+            {
+                builder.WithOrigins(origin).AllowAnyMethod().AllowAnyHeader();
+            }));
             //-----------------------------------
+
             // services.AddAutoMapper(typeof(Startup));
             // services.AddMediatR(typeof(Startup));
             // -------------------------------
@@ -51,6 +59,8 @@ namespace _4.LMS.WebApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            var policy = Configuration.GetSection("Cors-Origin:Policy").Value;
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -64,6 +74,9 @@ namespace _4.LMS.WebApi
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            // add Cors
+            app.UseCors(policy);
 
             // add authentication Midllware
             app.UseAuthentication();
